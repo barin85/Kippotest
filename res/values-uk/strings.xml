@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">КІППЗ тест</string>
+    <string name="next_button">Далі</string>
+    <string name="action_settings">Settings</string>
+    <string name="true_button">Правда</string>
+    <string name="false_button">Брехня</string>
+    <string name="toast_correct">Вгадав</string>
+    <string name="toast_incorrect">Ну нє</string>
+    <string name="question_one">Зеленський О.С. зав.кафедрою ІППЗ </string>
+    <string name="question_two">Кафедра ІППЗ навчає студентів вишивати хрестиком</string>
+    <string name="question_tree">Куратор групи ПЗАС–10–2 Цимбал Ж.В.</string>
+    <string name="question_four">Лисенко В.С. рекомендує усім у вільний час вирішувати демографічну проблему</string>
+    <string name="question_five">Викладачі кафедри приймаютб роботи лише на дискетах розміром 5.25\’\’</string>
+</resources>
