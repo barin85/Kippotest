@@ -1,6 +1,7 @@
 package com.example.kippotest;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -14,10 +15,16 @@ import android.widget.Toast;
 public class QuizActivity extends ActionBarActivity {
 
 	public static final String TAG = "QuizActivity";
+	public static final String EXTRA_ANSWER_IS_TRUE = 
+			"com.example.kippotest.answer_is_true";
+
+	
 	Button mTrueButton;
 	Button mFalseButton;
 	Button mNextButton;
+	Button mCheatButton;
 	
+	private boolean mIsCheater;
 	private static final String KEY_INDEX = "index";
 	
 	TextView mQuestionTextView;
@@ -36,6 +43,8 @@ public class QuizActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_quiz);
+		
+		mIsCheater = false;
 		
 		if (savedInstanceState != null) {
 			mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
@@ -71,8 +80,23 @@ public class QuizActivity extends ActionBarActivity {
 			public void onClick(View arg0) {
 				mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
 				updateQuestion();
+				mIsCheater = false;
 			}
-		});		
+		});
+		
+		mCheatButton = (Button) findViewById(R.id.cheat_button);
+		mCheatButton.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				Intent i = new Intent(QuizActivity.this, CheatActivity.class);
+				boolean answerIsTrue = mQuestionBank[mCurrentIndex].isTrueQuestion();
+				i.putExtra(CheatActivity.EXTRA_ANSWER_IS_TRUE, answerIsTrue);
+
+				startActivityForResult(i, 0);
+
+			}
+		});
 
 	}
 
@@ -142,11 +166,17 @@ public class QuizActivity extends ActionBarActivity {
 		boolean answerIsTrue = mQuestionBank[mCurrentIndex].isTrueQuestion();
 		
 		int messageResId = 0;
+		
+		if (mIsCheater) {
+			messageResId = R.string.judgment_toast;
 
-		if (userPressedTrue == answerIsTrue) {
-			messageResId = R.string.toast_correct;
 		} else {
-			messageResId = R.string.toast_incorrect;
+
+			if (userPressedTrue == answerIsTrue) {
+				messageResId = R.string.toast_correct;
+			} else {
+				messageResId = R.string.toast_incorrect;
+			}
 		}
 		
 		Toast.makeText(QuizActivity.this, messageResId,
@@ -160,5 +190,15 @@ public class QuizActivity extends ActionBarActivity {
 		savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);	
 		
 	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (data == null) {
+			return;
+		}
+		mIsCheater = data.getBooleanExtra(CheatActivity.EXTRA_ANSWER_SHOWN,
+				false);
+	}
+
 
 }

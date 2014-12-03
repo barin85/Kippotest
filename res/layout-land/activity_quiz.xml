@@ -1,18 +1,18 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
      >
 
     <TextView
         android:id="@+id/question_text_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:padding="24dip"/>
 
     <LinearLayout
+        android:layout_gravity="center_horizontal|center_vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
 
@@ -26,6 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/cheat_button" />
+        
 
         <Button
             android:id="@+id/false_button"
@@ -38,8 +39,9 @@
             android:id="@+id/next_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
             android:text="@string/next_button"
             android:drawablePadding="4dp"
             android:drawableRight="@drawable/arrow_next" />
 
-</LinearLayout>
+</FrameLayout>
